@@ -89,7 +89,7 @@ search=think
 }
 
 ## 5. Update a book - Only the created user of the book can update it
-- **PUT /book/updateBook/{id}** - Update a book by ID.
+- **PATCH /book/updateBook/{id}** - Update a book by ID.
 - **Request payload**:
 {
   "status":"Currently Reading"
