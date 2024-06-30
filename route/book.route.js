@@ -4,6 +4,7 @@ const BookModel = require("../model/book.model");
 const auth = require("../middleware/auth.middleware");
 const UserModel = require("../model/user.model");
 const FavoriteModel = require("../model/favorite.model");
+const ReviewModel = require("../model/review.model")
 
 bookRouter.post("/createBook", auth, async(req, res) => {
     const {title, author, genre, status} = req.body
@@ -119,6 +120,52 @@ bookRouter.post("/favortieBook", auth, async(req, res) => {
     }catch(err){
         console.log(err)
         res.status(200).send({"msg": "Fail to mark favorite"})
+    }
+})
+
+bookRouter.post("/createReview", auth, async(req, res) => {
+    const {bookId, review, rating} = req.body
+    let userId = req.body.userId
+    try{
+        let existingReview = await ReviewModel.findOne({bookId,userId});
+
+        if(existingReview){
+            if(userId === existingReview.userId){
+                existingReview.rating = rating;
+            existingReview.review = review;
+            await existingReview.save();
+            res.status(200).send({"msg": "Review updated successfully."})
+            }else{
+                res.status(404).send({"msg": "Unauthorised to update the review."});
+            }
+        } else{
+            const reviewBook = new ReviewModel({bookId, review, rating, userId });
+            await reviewBook.save();
+            res.status(200).send({"msg": "Created a review."})
+        }
+    }catch(err){
+        console.log(err)
+        res.status(200).send({"msg": "Fail to create a review."})
+    }
+})
+
+bookRouter.delete("/deleteReview/:reviewId", auth, async(req, res) => {
+    const {reviewId} = req.params;
+    try{
+        const review = await ReviewModel.findOne({_id:reviewId});
+
+        if(!review){
+            res.status(404).send("review not found.");
+        }
+        console.log(review.userId)
+        if(review.userId == req.body.userId){
+            await BookModel.findByIdAndDelete({_id: reviewId});
+            res.status(200).send({"msg": "Review deleted successfully."});
+        }else{
+            res.status(404).send({"msg": "Unauthorised to review book."});
+        }
+    }catch(err){
+        res.status(404).send({"msg": "Error in deleting review."});
     }
 })
 
