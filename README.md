@@ -17,16 +17,16 @@ An authorization token needs to be passed in the header for all requests except 
 
 ## API Endpoints
 
--1. User Authentication - Register
--POST /user/register - Register a new user.
--Request payload:
+## 1. User Authentication - Register
+# POST /user/register - Register a new user.
+# Request payload:
 {
   "username": "c",
   "email": "c@gmail.com",
   "password": "c"
 }
 
--Sample Response:
+# Sample Response:
 {
   "msg": "New user is registered."
 }
