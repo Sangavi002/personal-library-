@@ -1,14 +1,21 @@
-Personal Library Application API
-Features
-User Authentication: Secure user registration and login.
-Book Management: CRUD operations for books.
-Book Categorization: Organize books with statuses (Currently Reading, Read, Want to Read).
-Dynamic Pagination: Efficiently handle large collections of books.
-Filtering, Sorting, and Search: Easily find books based on title and author.
-Book Reviews: Create, update, and delete reviews for books.
-Favorites: Manage a list of favorite books.
-API Endpoints : 
-Authorization token needs to passed in the header for all the requests apart from the register user api.
+# Personal Library Application API
+
+## Features
+
+- **User Authentication**: Secure user registration and login.
+- **Book Management**: CRUD operations for books.
+- **Book Categorization**: Organize books with statuses (Currently Reading, Read, Want to Read).
+- **Dynamic Pagination**: Efficiently handle large collections of books.
+- **Filtering, Sorting, and Search**: Easily find books based on title and author.
+- **Book Reviews**: Create, update, and delete reviews for books.
+- **Favorites**: Manage a list of favorite books.
+
+### Authorization
+An authorization token needs to be passed in the header for all requests except for the register user API.
+
+---
+
+## API Endpoints
 
 1. User Authentication - Register
 POST /user/register - Register a new user.
